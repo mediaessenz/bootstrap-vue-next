@@ -312,7 +312,11 @@ export default defineComponent({
           h(
             isDisabled ? 'span' : 'button',
             {
-              'class': ['page-link', {'flex-grow-1': !isDisabled && fill}],
+              'class': [
+                'page-link',
+                {'flex-grow-1': !isDisabled && fill},
+                {'text-center': isDisabled},
+              ],
               'aria-label': ariaLabel,
               'aria-controls': props.ariaControls || null,
               'aria-disabled': isDisabled ? true : null,
