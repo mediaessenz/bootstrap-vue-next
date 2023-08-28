@@ -122,7 +122,7 @@ const props = withDefaults(
       perPage?: number
       // TODO number | string => with useToNumber
       currentPage?: number
-      filter?: string
+      filter?: string | object
       filterable?: string[]
     } & Omit<BTableSimpleProps, 'tableClass' | 'tableVariant'> &
       Omit<BTableLiteProps, 'virtualFields'>

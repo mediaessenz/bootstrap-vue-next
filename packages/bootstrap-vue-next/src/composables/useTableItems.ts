@@ -6,7 +6,7 @@ type TableItemsProcessingProps = {
   fields?: TableField[]
   perPage?: number
   currentPage?: number
-  filter?: string
+  filter?: string | object
   filterable?: string[]
   sortBy?: string
   sortDesc?: Booleanish
@@ -42,7 +42,7 @@ const sortItems = (
 
 const filterItems = (
   items: TableItem<Record<string, any>>[],
-  filter: string,
+  filter: string | object,
   filterable?: string[]
 ) =>
   items.filter(
@@ -50,6 +50,7 @@ const filterItems = (
       Object.entries(item).filter((item) => {
         const [key, val] = item
         if (
+          typeof filter === 'object' ||
           !val ||
           key[0] === '_' ||
           (filterable && filterable.length > 0 && !filterable.includes(key))
@@ -118,7 +119,10 @@ export default (
   })
 
   const computedDisplayItems = computed<TableItem[]>(() => {
-    if (tableProps.perPage === undefined) {
+    if (
+      tableProps.perPage === undefined ||
+      (usesProvider.value && !flags.noProviderPagingBoolean.value)
+    ) {
       return computedItems.value
     }
     return computedItems.value.slice(displayStartEndIdx.value[0], displayStartEndIdx.value[1])
