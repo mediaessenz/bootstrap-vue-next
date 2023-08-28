@@ -64,7 +64,7 @@ const props = withDefaults(
     state?: Booleanish | null
     textField?: string
     valueField?: string
-    modelValue?: string | unknown[] | Record<string, unknown> | number | null
+    modelValue?: string | unknown[] | Record<string, unknown> | number | boolean | null
   }>(),
   {
     form: undefined,
