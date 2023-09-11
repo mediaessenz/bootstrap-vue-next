@@ -11,10 +11,10 @@
       :horizontal="horizontal"
       :visible="visible"
       :is-nav="isNav"
-      @show="$emit('show', $event)"
-      @shown="emit('shown', $event)"
+      @show="emit('show', $event)"
+      @shown="emit('shown')"
       @hide="emit('hide', $event)"
-      @hidden="emit('hidden', $event)"
+      @hidden="emit('hidden')"
       @hide-prevented="emit('hide-prevented')"
       @show-prevented="emit('show-prevented')"
     >
@@ -64,23 +64,23 @@ const props = withDefaults(
     isNav?: Booleanish
   }>(),
   {
-    headerTag: 'h2',
     id: undefined,
     title: undefined,
-    tag: undefined,
-    horizontal: undefined,
-    toggle: undefined,
-    isNav: undefined,
     modelValue: false,
+    headerTag: 'h2',
+    tag: undefined,
+    toggle: undefined,
+    horizontal: undefined,
     visible: false,
+    isNav: undefined,
   }
 )
 
 const emit = defineEmits<{
   'show': [value: BvTriggerableEvent]
-  'shown': [value: BvTriggerableEvent]
+  'shown': []
   'hide': [value: BvTriggerableEvent]
-  'hidden': [value: BvTriggerableEvent]
+  'hidden': []
   'hide-prevented': []
   'show-prevented': []
   'update:modelValue': [value: boolean]

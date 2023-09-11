@@ -4,7 +4,7 @@
     v-bind="props"
     v-model:busy="busyModel"
     :items="computedDisplayItems"
-    :table-classes="tableClasses"
+    :table-class="tableClasses"
     :tbody-tr-class="getRowClasses"
     :field-column-class="getFieldColumnClasses"
     :virtual-fields="selectableBoolean ? 1 : 0"
@@ -179,7 +179,7 @@ const emit = defineEmits<{
     key: TableFieldObject['key'],
     field: TableField,
     event: MouseEvent,
-    isFooter: boolean,
+    isFooter: boolean
   ]
   'row-clicked': [item: TableItem, index: number, event: MouseEvent]
   'row-dbl-clicked': [item: TableItem, index: number, event: MouseEvent]
@@ -234,7 +234,13 @@ const tableClasses = computed(() => ({
   'b-table-selecting user-select-none': selectableBoolean.value && isSelecting.value,
 }))
 
-const requireItemsMapping = computed(() => isSortable.value && sortInternalBoolean.value === true)
+const requireItemsMapping = computed(
+  () =>
+    (isSortable.value && sortInternalBoolean.value === true) ||
+    (isSortable.value && usesProvider.value) ||
+    isFilterableTable.value
+)
+
 const addSelectableCell = computed(
   () => selectableBoolean.value && (!!props.selectHead || slots.selectHead !== undefined)
 )
@@ -250,7 +256,9 @@ const {
   {
     sortInternalBoolean,
     isFilterableTable,
+    noProviderFilteringBoolean,
     noProviderPagingBoolean,
+    noProviderSortingBoolean,
     isSortable,
     requireItemsMapping,
     sortDescBoolean,
